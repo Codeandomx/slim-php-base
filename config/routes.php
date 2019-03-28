@@ -8,6 +8,7 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Slim\Views\Twig;
 
 // Ruta principal
 $app->get('/', function (Request $request, Response $response) {
@@ -22,4 +23,13 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     $response->getBody()->write("Hello, $name");
 
     return $response;
+});
+
+// Ruta de pruebas para plantilla
+$app->get('/time', function (Request $request, Response $response) {
+    $viewData = [
+        'now' => date('Y-m-d H:i:s')
+    ];
+
+    return $this->get(Twig::class)->render($response, 'time.twig', $viewData);
 });
