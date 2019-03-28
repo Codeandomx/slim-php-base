@@ -1,4 +1,11 @@
 <?php
+/**
+ * Configuración de la APP
+ * 
+ * Author: Paulo Andrade
+ * Fecha actualización: 27/03/2019
+ */
+
 // Incluimos los archivos principales de SLIM
 require_once __DIR__ . '/../vendor/autoload.php';
 

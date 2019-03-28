@@ -1,4 +1,6 @@
 {
+    "name": "slim-template",
+    "description": "slim php base",
     "require": {
         "slim/slim": "^3.12"
     },
