@@ -6,9 +6,14 @@
  * Fecha actualización: 27/03/2019
  */
 
+// Routes
 use Slim\Http\Request;
 use Slim\Http\Response;
+// Twing
 use Slim\Views\Twig;
+// Logger
+use Psr\Log\LoggerInterface;
+use Slim\Container;
 
 // Ruta principal
 $app->get('/', function (Request $request, Response $response) {
@@ -32,4 +37,18 @@ $app->get('/time', function (Request $request, Response $response) {
     ];
 
     return $this->get(Twig::class)->render($response, 'time.twig', $viewData);
+});
+
+// Configuración basica para logger
+$app->get('/logger-test', function (Request $request, Response $response) {
+    /**
+     * @var Container $this
+     * @var LoggerInterface $logger
+     * */
+    $logger = $this->get(LoggerInterface::class);
+    $logger->error('My error message!');
+
+    $response->getBody()->write("Success");
+
+    return $response;
 });

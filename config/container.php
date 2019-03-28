@@ -7,7 +7,12 @@
  */
 
 use Slim\Container;
+// Twing
 use Slim\Views\Twig;
+// Logger
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 /**
  * Obtenemos el contenedor de depedencias
@@ -45,4 +50,16 @@ $container[Twig::class] = function (Container $container) {
     $twig->addExtension(new \Slim\Views\TwigExtension($router, $uri));
 
     return $twig;
+};
+
+$container[LoggerInterface::class] = function (Container $container) {
+    $settings = $container->get('settings')['logger'];
+    $level = isset($settings['level']) ?: Logger::ERROR;
+    $logFile = $settings['file'];
+
+    $logger = new Logger($settings['name']);
+    $handler = new RotatingFileHandler($logFile, 0, $level, true, 0775);
+    $logger->pushHandler($handler);
+
+    return $logger;
 };
