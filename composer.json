@@ -2,6 +2,7 @@
     "name": "slim-template",
     "description": "slim php base",
     "require": {
+        "cakephp/database": "^3.7",
         "slim/slim": "^3.12",
         "slim/twig-view": "^2.4"
     },

@@ -8,7 +8,12 @@
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+// Plantillas
 use Slim\Views\Twig;
+// Conexion base de datos
+use Cake\Database\Connection;
+
+use App\Entities\UserMapper;
 
 // Ruta principal
 $app->get('/', function (Request $request, Response $response) {
@@ -32,4 +37,23 @@ $app->get('/time', function (Request $request, Response $response) {
     ];
 
     return $this->get(Twig::class)->render($response, 'time.twig', $viewData);
+});
+
+// Pruebas base de datos
+$app->get('/databases', function (Request $request, Response $response) {
+    /** @var Container $this */
+
+    $query = $this->get(Connection::class)->newQuery();
+
+    // fetch all rows as array
+    $query = $query->select('*')->from('information_schema.schemata');
+    
+    $rows = $query->execute()->fetchAll('assoc') ?: [];
+
+    $user = new UserMapper($this->get(Connection::class));
+
+echo var_dump($user->getUsers());
+
+    // return a json response
+    return $response->withJson(['data'=>$user->getUsers()]);
 });
