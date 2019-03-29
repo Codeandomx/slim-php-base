@@ -3,7 +3,7 @@
  * Controlador para errores de la APP
  * 
  * Author: Paulo Andrade
- * Fecha actualización: 27/03/2019
+ * Fecha actualización: 28/03/2019
  */
 
 namespace App\Handlers;
@@ -15,7 +15,7 @@ use Monolog\Logger;
 final class Error extends \Slim\Handlers\Error
 {
     protected $logger;
- 
+
     public function __construct(Logger $logger)
     {
         $this->logger = $logger;
