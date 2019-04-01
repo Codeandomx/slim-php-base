@@ -29,6 +29,13 @@ $settings['twig'] = [
     'cache_path' =>  $settings['temp'] . '/twig-cache'
 ];
 
+// Configuración Logger
+$settings['logger'] = [
+    'name' => 'app',
+    'file' => $settings['temp'] . '/logs/app-'.date("d").'-'.date("m").'-'.date("Y").'.log',
+    'level' => \Monolog\Logger::ERROR,
+];
+
 // Configuración de Base de datos
 $settings['db'] = [
     'driver' => 'mysql',

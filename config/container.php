@@ -12,6 +12,13 @@ use Slim\Views\Twig;
 // Base de datos
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
+// Twing
+use Slim\Views\Twig;
+// Logger
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
+use App\Handlers\Error;
 
 /**
  * Obtenemos el contenedor de depedencias
@@ -71,4 +78,18 @@ $container[PDO::class] = function (Container $container) {
     $connection->getDriver()->connect();
 
     return $connection->getDriver()->getConnection();
+// Logger
+$container['Logger'] = function($container) {
+    $settings = $container->get('settings')['logger'];
+    $logger = new Monolog\Logger('logger');
+    $stream = new Monolog\Handler\StreamHandler($settings['file'], Monolog\Logger::DEBUG);
+    $fingersCrossed = new Monolog\Handler\FingersCrossedHandler(
+        $stream, Monolog\Logger::ERROR);
+    $logger->pushHandler($fingersCrossed);
+ 
+    return $logger;
+};
+
+$container['errorHandler'] = function ($container) {
+    return new App\Handlers\Error($container['Logger']);
 };
