@@ -12,8 +12,6 @@ use Slim\Views\Twig;
 // Base de datos
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
-// Twing
-use Slim\Views\Twig;
 // Logger
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
@@ -78,6 +76,8 @@ $container[PDO::class] = function (Container $container) {
     $connection->getDriver()->connect();
 
     return $connection->getDriver()->getConnection();
+};
+
 // Logger
 $container['Logger'] = function($container) {
     $settings = $container->get('settings')['logger'];
