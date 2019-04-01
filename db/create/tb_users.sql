@@ -14,3 +14,9 @@ create table tb_users(
     foreign key(id_role) references tb_roles(id_role),
     primary key(id_user)
 ) engine = innodb;
+
+SELECT t0.name,t0.last_name,t0.email,t0.username,t0.last_activity,t0.sessions,t0.date_register,t0.date_update,t1.id_role,t1.name
+FROM tb_users t0 INNER JOIN tb_roles t1 ON t0.id_role = t1.id_role
+WHERE t0.id_user = 1
+GROUP BY t0.name
+ORDER BY t0.name ASC

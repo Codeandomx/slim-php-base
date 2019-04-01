@@ -14,6 +14,7 @@ use Slim\Views\Twig;
 use Cake\Database\Connection;
 
 use App\Entities\UserMapper;
+use App\Entities\RoleMapper;
 
 // Ruta principal
 $app->get('/', function (Request $request, Response $response) {
@@ -51,9 +52,9 @@ $app->get('/databases', function (Request $request, Response $response) {
     $rows = $query->execute()->fetchAll('assoc') ?: [];
 
     $user = new UserMapper($this->get(Connection::class));
-
-echo var_dump($user->getUsers());
+    $role  = new RoleMapper($this->get(Connection::class));
 
     // return a json response
-    return $response->withJson(['data'=>$user->getUsers()]);
+    // return $response->withJson(['data'=>$user->getUsers()]);
+    return $response->withJson(['data'=>$role->getRoles()]);
 });
