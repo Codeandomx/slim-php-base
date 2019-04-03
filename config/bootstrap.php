@@ -15,6 +15,9 @@ $app = new \Slim\App(['settings' => require __DIR__ . '/../config/settings.php']
 // Configuramos las dependencias
 require  __DIR__ . '/container.php';
 
+// Confirmamos las dependencias de los controladores
+require  __DIR__ . '/dependencies.php';
+
 // Registramos los middlware
 require __DIR__ . '/middleware.php';
 

@@ -11,26 +11,17 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 // Plantillas
 use Slim\Views\Twig;
-// Conexion base de datos
-use Cake\Database\Connection;
+// Controladores
+use App\Controllers\DataBaseController;
 
-use App\Entities\UserMapper;
-use App\Entities\RoleMapper;
+// Rutas
+$app->any('/api/databases', \App\Controllers\DataBaseController::class);
 
 // Ruta principal
-$app->get('/', function (Request $request, Response $response) {
-    $response->getBody()->write("It works! This is the default welcome page.");
-
-    return $response;
-})->setName('root');
+$app->get('/', \App\Controllers\HomeController::class)->setName('root');
 
 // ruta de prueba para parametros
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
-
-    return $response;
-});
+$app->get('/hello/{name}', \App\Controllers\HelloController::class);
 
 // Ruta de pruebas para plantilla
 $app->get('/time', function (Request $request, Response $response) {
@@ -39,23 +30,4 @@ $app->get('/time', function (Request $request, Response $response) {
     ];
 
     return $this->get(Twig::class)->render($response, 'time.twig', $viewData);
-});
-
-// Pruebas base de datos
-$app->get('/databases', function (Request $request, Response $response) {
-    /** @var Container $this */
-
-    $query = $this->get(Connection::class)->newQuery();
-
-    // fetch all rows as array
-    $query = $query->select('*')->from('information_schema.schemata');
-    
-    $rows = $query->execute()->fetchAll('assoc') ?: [];
-
-    $user = new UserMapper($this->get(Connection::class));
-    $role  = new RoleMapper($this->get(Connection::class));
-
-    // return a json response
-    // return $response->withJson(['data'=>$user->getUsers()]);
-    return $response->withJson(['data'=>$role->getRoles()]);
 });
