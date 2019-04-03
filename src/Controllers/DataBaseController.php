@@ -3,7 +3,7 @@
  * Controlador para ruta api/databases
  * 
  * Author: Paulo Andrade
- * Fecha actualización: 01/04/2019
+ * Fecha actualización: 02/04/2019
  */
 
 namespace App\Controllers;

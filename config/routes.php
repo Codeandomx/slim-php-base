@@ -18,19 +18,10 @@ use App\Controllers\DataBaseController;
 $app->any('/api/databases', \App\Controllers\DataBaseController::class);
 
 // Ruta principal
-$app->get('/', function (Request $request, Response $response) {
-    $response->getBody()->write("It works! This is the default welcome page.");
-
-    return $response;
-})->setName('root');
+$app->get('/', \App\Controllers\HomeController::class)->setName('root');
 
 // ruta de prueba para parametros
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
-
-    return $response;
-});
+$app->get('/hello/{name}', \App\Controllers\HelloController::class);
 
 // Ruta de pruebas para plantilla
 $app->get('/time', function (Request $request, Response $response) {
