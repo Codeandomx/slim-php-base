@@ -21,6 +21,9 @@ require  __DIR__ . '/dependencies.php';
 // Registramos los middlware
 require __DIR__ . '/middleware.php';
 
+// Registramos las rutas para la API
+require __DIR__ . '/routesAPI.php';
+
 // Registramos las rutas
 require __DIR__ . '/routes.php';
 

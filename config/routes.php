@@ -14,20 +14,11 @@ use Slim\Views\Twig;
 // Controladores
 use App\Controllers\DataBaseController;
 
-// Rutas
-$app->any('/api/databases', \App\Controllers\DataBaseController::class);
-
 // Ruta principal
 $app->get('/', \App\Controllers\HomeController::class)->setName('root');
 
 // ruta de prueba para parametros
 $app->get('/hello/{name}', \App\Controllers\HelloController::class);
 
-// Ruta de pruebas para plantilla
-$app->get('/time', function (Request $request, Response $response) {
-    $viewData = [
-        'now' => date('Y-m-d H:i:s')
-    ];
-
-    return $this->get(Twig::class)->render($response, 'time.twig', $viewData);
-});
+// Login
+$app->post('/login', \App\Controllers\LoginController::class);
