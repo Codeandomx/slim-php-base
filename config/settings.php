@@ -55,4 +55,10 @@ $settings['db'] = [
     ],
 ];
 
+// Configuración de JWT
+$settings['jwt'] = [
+    'encrypt' => ['HS256'],
+    'secret' =>"Sdw1s9x8@!arantasdesign!Q8x9s1wdS"
+];
+
 return $settings;
